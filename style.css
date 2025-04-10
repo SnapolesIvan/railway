@@ -1,8 +1,10 @@
+/* General body styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-image: url('fondo.jpg'); /* Reemplázalo por la imagen de fondo deseada */
   background-size: cover;
+  text-align: left; /* Todo el contenido está alineado a la izquierda */
 }
 
 .container {
@@ -12,14 +14,116 @@ body {
 
 /* Estilo para el encabezado */
 header {
-  display: flex; /* Usar diseño flexbox */
-  flex-direction: row; /* Alinear elementos en una fila */
+  display: flex; /* Diseño flexible */
+  flex-direction: row; /* Elementos en fila */
   align-items: center; /* Centrar elementos verticalmente */
-  justify-content: flex-start; /* Mantener todo alineado al lado izquierdo */
+  justify-content: flex-start; /* Alinear elementos hacia la izquierda */
   background-color: #003366; /* Azul UDGVirtual */
-  padding: 20px; /* Espaciado alrededor */
+  padding: 20px; /* Espaciado */
   color: #FFFFFF; /* Blanco */
-  box-shadow: none; /* Sin sombra */
 }
 
-header img
+header img {
+  height: 50px; /* Tamaño del logo */
+  margin-right: 15px; /* Separación entre el logo y el título */
+}
+
+header h1 {
+  color: #FFFFFF; /* Título en blanco */
+  text-align: left; /* Título alineado a la izquierda */
+  margin: 0; /* Sin márgenes */
+}
+
+/* Imagen y descripción del logo UDGVirtual */
+.udg-virtual-logo {
+  display: flex;
+  flex-direction: column; /* Alinear elementos en columna */
+  align-items: flex-start; /* Alinear todo a la izquierda */
+  margin: 20px 0; /* Espaciado con otros elementos */
+}
+
+.udg-virtual-logo img {
+  max-width: 300px; /* Tamaño máximo del logo */
+  height: auto;
+  margin-bottom: 10px; /* Espaciado entre el logo y la descripción */
+}
+
+.descripcion-web {
+  text-align: left; /* Alinear la descripción a la izquierda */
+  font-size: 16px;
+  color: #003366; /* Azul marino */
+  font-weight: bold;
+}
+
+/* Alineación para el título "Video Streaming" */
+h2 {
+  text-align: left; /* Título alineado a la izquierda */
+  color: #003366; /* Azul marino */
+  margin: 10px 0; /* Separación entre el título y otros elementos */
+}
+
+/* Alineación para el enlace del video */
+.video-link {
+  text-align: left; /* Enlace alineado a la izquierda */
+  display: block; /* Hacer que el enlace sea un bloque */
+  margin-top: 5px; /* Separación entre el título y el enlace */
+  color: #003366; /* Azul marino */
+  text-decoration: none; /* Sin subrayado */
+}
+
+.video-link:hover {
+  text-decoration: underline; /* Subrayado al pasar el cursor */
+}
+
+/* Footer (datos centrados) */
+footer {
+  background-color: #003366; /* Azul UDGVirtual */
+  color: #FFFFFF; /* Texto blanco */
+  text-align: center; /* Centrar los datos */
+  padding: 10px;
+}
+
+.footer-content {
+  margin-top: 20px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.buttons button {
+  margin-right: 10px;
+  background-color: #FFCC00; /* Amarillo UDGVirtual */
+  border: none;
+  padding: 10px;
+  color: #003366; /* Azul marino */
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buttons button:hover {
+  background-color: #003366; /* Fondo azul al pasar el cursor */
+  color: #FFCC00; /* Texto amarillo al pasar el cursor */
+}
+
+/* Cuadro para registros */
+.registros-container {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #003366; /* Borde azul */
+  border-radius: 5px;
+  background-color: #f0f8ff; /* Fondo azul claro */
+  max-height: 300px; /* Altura máxima */
+  overflow-y: auto; /* Scroll para múltiples registros */
+}
+
+.registros-container ul {
+  list-style-type: none; /* Sin estilo de lista */
+  padding: 0;
+}
+
+.registros-container li {
+  margin: 5px 0; /* Espaciado entre elementos */
+  padding: 5px;
+  border-bottom: 1px solid #003366; /* Separación entre registros */
+}
