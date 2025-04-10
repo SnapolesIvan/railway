@@ -10,17 +10,20 @@
   <div class="container">
     <!-- Header -->
     <header>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu26kbYotQtBC77tSsOlxWXwrf3UX-Vj0NHA&s" alt="Logo del sitio"> <!-- Logo del sitio -->
-      <a href="https://udgvirtual.udg.mx/" target="_blank">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-54rddyjZmKI9gjYbZ-bqVZr_gGzeyujaAg&s" alt="UDGVirtual Logo">
-      </a>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu26kbYotQtBC77tSsOlxWXwrf3UX-Vj0NHA&s" alt="Logo del sitio">
       <h1>Gestión de Registros</h1>
     </header>
 
     <!-- Body -->
     <div class="content">
-      <h2>Video de Streaming</h2>
-      <a href="https://youtu.be/JuNIp2-zTdc?si=AjkxlfEoXjzEgafw" target="_blank">Ver el video</a>
+      <h2 style="text-align: center; color: #003366;">Video de Streaming</h2>
+      <a href="https://youtu.be/JuNIp2-zTdc?si=AjkxlfEoXjzEgafw" target="_blank" style="display: block; text-align: center;">Ver el video</a>
+
+      <!-- Imagen de UDGVirtual -->
+      <div class="udg-virtual-logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-54rddyjZmKI9gjYbZ-bqVZr_gGzeyujaAg&s" alt="UDGVirtual Logo">
+        <p class="descripcion-web">Repositorio en GitHub y deploy en Railway con una base de datos en Postgres SQL</p>
+      </div>
 
       <div class="buttons">
         <button onclick="consultarRegistros()">Consultar Todos</button>
@@ -28,6 +31,11 @@
         <button onclick="editarRegistro()">Editar</button>
         <button onclick="eliminarRegistro()">Eliminar</button>
         <button onclick="agregarRegistro()">Agregar</button>
+      </div>
+
+      <!-- Cuadro para mostrar registros -->
+      <div id="registros-container" class="registros-container">
+        <!-- Los registros aparecerán aquí dinámicamente -->
       </div>
     </div>
 
