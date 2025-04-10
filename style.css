@@ -12,25 +12,25 @@ body {
 
 /* Estilo para el encabezado */
 header {
-  display: flex;
-  flex-direction: column; /* Colocar elementos en columna */
-  align-items: center; /* Centrar los elementos horizontalmente */
-  justify-content: center; /* Centrar contenido verticalmente */
+  display: flex; /* Usar diseño flexbox */
+  flex-direction: row; /* Alinear elementos en una fila */
+  align-items: center; /* Centrar elementos verticalmente */
+  justify-content: flex-start; /* Mantener todo alineado al lado izquierdo */
   background-color: #003366; /* Azul UDGVirtual */
-  padding: 20px; /* Incrementar espacio alrededor */
+  padding: 20px; /* Espaciado alrededor */
   color: #FFFFFF; /* Blanco */
   box-shadow: none; /* Sin sombra */
 }
 
 header img {
-  height: 40px; /* Tamaño pequeño */
-  margin-bottom: 10px; /* Separación entre el logo y el título */
+  height: 50px; /* Tamaño del logo */
+  margin-right: 15px; /* Espaciado entre el logo y el título */
 }
 
 header h1 {
   color: #FFFFFF; /* Título en blanco */
-  text-align: center; /* Centrar el texto */
-  margin: 0; /* Eliminar márgenes */
+  text-align: left; /* Texto alineado a la izquierda */
+  margin: 0; /* Sin márgenes */
 }
 
 footer {
