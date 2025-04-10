@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background-image: url('fondo.jpg'); /* Reemplázalo por la imagen de fondo deseada */
   background-size: cover;
+  text-align: left; /* Alinear todo el contenido al lado izquierdo */
 }
 
 .container {
@@ -46,6 +47,7 @@ footer {
 
 .content {
   padding: 20px;
+  text-align: left; /* Asegurar que el texto esté alineado a la izquierda */
 }
 
 .buttons button {
@@ -67,7 +69,7 @@ footer {
 .udg-virtual-logo {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Alinear la imagen al lado izquierdo */
   margin: 20px 0; /* Separación con los elementos circundantes */
 }
 
@@ -78,7 +80,7 @@ footer {
 
 /* Estilo para la descripción */
 .descripcion-web {
-  text-align: center;
+  text-align: left; /* Alinear el texto al lado izquierdo */
   margin-top: 10px;
   font-size: 16px;
   color: #FFFFFF; /* Blanco */
