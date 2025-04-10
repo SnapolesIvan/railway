@@ -3,7 +3,6 @@ body {
   font-family: Arial, sans-serif;
   background-image: url('fondo.jpg'); /* Reemplázalo por la imagen de fondo deseada */
   background-size: cover;
-  text-align: left; /* Alinear el contenido del cuerpo al lado izquierdo */
 }
 
 .container {
@@ -32,6 +31,25 @@ header h1 {
   color: #FFFFFF; /* Título en blanco */
   text-align: left; /* Texto alineado a la izquierda */
   margin: 0; /* Sin márgenes */
+}
+
+/* Alineación para la sección "Video Streaming" */
+h2 {
+  text-align: left; /* Título alineado a la izquierda */
+  color: #003366; /* Azul marino */
+  margin: 20px 0; /* Separación con los elementos circundantes */
+}
+
+.content a {
+  text-align: left; /* Enlace alineado a la izquierda */
+  display: block; /* Enlace como un bloque para facilitar la alineación */
+  margin-top: 5px; /* Separación entre el título y el enlace */
+  color: #003366; /* Azul marino */
+  text-decoration: none; /* Eliminar subrayado */
+}
+
+.content a:hover {
+  text-decoration: underline; /* Subrayado al pasar el cursor */
 }
 
 footer {
@@ -82,7 +100,7 @@ footer {
 .descripcion-web {
   text-align: left; /* Alinear el texto al lado izquierdo */
   font-size: 16px;
-  color: #FFFFFF; /* Blanco */
+  color: #003366; /* Azul marino */
   font-weight: bold;
 }
 
