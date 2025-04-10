@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background-image: url('fondo.jpg'); /* Reemplázalo por la imagen de fondo deseada */
   background-size: cover;
-  text-align: left; /* Alinear todo el contenido al lado izquierdo */
+  text-align: left; /* Alinear el contenido del cuerpo al lado izquierdo */
 }
 
 .container {
@@ -65,23 +65,22 @@ footer {
   color: #FFCC00; /* Texto al pasar el cursor */
 }
 
-/* Centrar la imagen de UDGVirtual */
+/* Imagen y descripción del logo UDG alineado a la izquierda */
 .udg-virtual-logo {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinear la imagen al lado izquierdo */
+  align-items: flex-start; /* Alinear la imagen y descripción al lado izquierdo */
   margin: 20px 0; /* Separación con los elementos circundantes */
 }
 
 .udg-virtual-logo img {
   max-width: 300px; /* Tamaño máximo de la imagen */
   height: auto;
+  margin-bottom: 10px; /* Separación entre la imagen y la descripción */
 }
 
-/* Estilo para la descripción */
 .descripcion-web {
   text-align: left; /* Alinear el texto al lado izquierdo */
-  margin-top: 10px;
   font-size: 16px;
   color: #FFFFFF; /* Blanco */
   font-weight: bold;
