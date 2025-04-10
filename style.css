@@ -12,16 +12,24 @@ body {
 
 header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Colocar elementos en columna */
   align-items: center;
-  background-color: #FFFFFF; /* Fondo blanco */
+  justify-content: center; /* Centrar contenido */
+  background-color: #003366; /* Azul UDGVirtual */
   padding: 15px;
-  color: #003366; /* Azul UDGVirtual */
+  color: #FFFFFF; /* Blanco */
   box-shadow: 0px 4px 6px #003366; /* Sombra azul */
 }
 
 header img {
   height: 40px; /* Tamaño pequeño */
+  margin-bottom: 10px; /* Espaciado debajo del logo */
+}
+
+header h1 {
+  color: #FFFFFF; /* Título en blanco */
+  text-align: center; /* Centrado */
+  margin: 0;
 }
 
 footer {
@@ -72,7 +80,7 @@ footer {
   text-align: center;
   margin-top: 10px;
   font-size: 16px;
-  color: #003366; /* Azul UDGVirtual */
+  color: #FFFFFF; /* Blanco */
   font-weight: bold;
 }
 
