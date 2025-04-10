@@ -1,55 +1,99 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('fondo.jpg'); /* Reemplázalo por la imagen de fondo deseada */
-    background-size: cover;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: auto;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #FFFFFF; /* Fondo blanco */
-    padding: 15px;
-    color: #003366; /* Azul marino para el texto */
-    box-shadow: 0px 4px 6px #003366; /* Sombra azul */
-  }
-  
-  header img {
-    height: 40px; /* Tamaño pequeño */
-  }
-  
-  footer {
-    background-color: #003366; /* Azul marino UDGVirtual */
-    color: #FFFFFF; /* Blanco */
-    text-align: center;
-    padding: 10px;
-  }
-  
-  .footer-content {
-    margin-top: 20px;
-  }
-  
-  .content {
-    padding: 20px;
-  }
-  
-  .buttons button {
-    margin-right: 10px;
-    background-color: #FFCC00; /* Amarillo UDGVirtual */
-    border: none;
-    padding: 10px;
-    color: #003366; /* Azul marino para el texto */
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .buttons button:hover {
-    background-color: #003366; /* Cambio de fondo al azul marino al pasar el cursor */
-    color: #FFCC00; /* Cambio de texto al amarillo */
-  }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('fondo.jpg'); /* Reemplázalo por la imagen de fondo deseada */
+  background-size: cover;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF; /* Fondo blanco */
+  padding: 15px;
+  color: #003366; /* Azul UDGVirtual */
+  box-shadow: 0px 4px 6px #003366; /* Sombra azul */
+}
+
+header img {
+  height: 40px; /* Tamaño pequeño */
+}
+
+footer {
+  background-color: #003366; /* Azul UDGVirtual */
+  color: #FFFFFF; /* Blanco */
+  text-align: center;
+  padding: 10px;
+}
+
+.footer-content {
+  margin-top: 20px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.buttons button {
+  margin-right: 10px;
+  background-color: #FFCC00; /* Amarillo UDGVirtual */
+  border: none;
+  padding: 10px;
+  color: #003366; /* Azul marino para el texto */
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buttons button:hover {
+  background-color: #003366; /* Fondo al pasar el cursor */
+  color: #FFCC00; /* Texto al pasar el cursor */
+}
+
+/* Centrar la imagen de UDGVirtual */
+.udg-virtual-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0; /* Separación con los elementos circundantes */
+}
+
+.udg-virtual-logo img {
+  max-width: 300px; /* Tamaño máximo de la imagen */
+  height: auto;
+}
+
+/* Estilo para la descripción */
+.descripcion-web {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #003366; /* Azul UDGVirtual */
+  font-weight: bold;
+}
+
+/* Cuadro de registros */
+.registros-container {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #003366; /* Borde azul */
+  border-radius: 5px;
+  background-color: #f0f8ff; /* Fondo azul claro */
+  max-height: 300px; /* Altura máxima */
+  overflow-y: auto; /* Scroll si hay muchos registros */
+}
+
+.registros-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.registros-container li {
+  margin: 5px 0;
+  padding: 5px;
+  border-bottom: 1px solid #003366; /* Separación entre registros */
+}
