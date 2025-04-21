@@ -26,4 +26,57 @@ function consultarRegistros() {
     });
 }
 
+function agregarRegistro() {
+  const nombre = prompt('Introduce el nombre:');
+  const valor = prompt('Introduce el valor:');
+  fetch('/registros', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, valor }),
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Error al agregar el registro');
+      alert('Registro agregado con éxito');
+      consultarRegistros();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al agregar el registro');
+    });
+}
+
+function editarRegistro() {
+  const id = prompt('Introduce el ID del registro:');
+  const nombre = prompt('Introduce el nuevo nombre:');
+  const valor = prompt('Introduce el nuevo valor:');
+  fetch(`/registros/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, valor }),
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Error al actualizar el registro');
+      alert('Registro actualizado con éxito');
+      consultarRegistros();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al actualizar el registro');
+    });
+}
+
+function eliminarRegistro() {
+  const id = prompt('Introduce el ID del registro:');
+  fetch(`/registros/${id}`, { method: 'DELETE' })
+    .then(response => {
+      if (!response.ok) throw new Error('Error al eliminar el registro');
+      alert('Registro eliminado con éxito');
+      consultarRegistros();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al eliminar el registro');
+    });
+}
+
 
