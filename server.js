@@ -5,10 +5,13 @@ const PORT = process.env.PORT || 3000;
 
 // Configuración de conexión a PostgreSQL en Railway
 const pool = new Pool({
-  connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@postgres.railway.internal:5432/railway'
+  connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@gondola.proxy.rlwy.net:56083/railway',
+  ssl: {
+    rejectUnauthorized: false // Esto es necesario en Railway para conexiones seguras
+  }
 });
 
-// Middleware para manejar solicitudes JSON
+// Middleware para manejar JSON
 app.use(express.json());
 
 // Ruta para consultar todos los registros
