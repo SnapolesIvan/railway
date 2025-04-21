@@ -1,8 +1,8 @@
 const BASE_URL = 'https://entorno-web.up.railway.app'; // Backend URL
 
-async function consultarRegistros() {
+async function consultarRegistro() {
   try {
-    const response = await fetch(`${BASE_URL}/registros`);
+    const response = await fetch(`${BASE_URL}/registro`);
     if (!response.ok) throw new Error('Error al consultar los registros');
     const data = await response.json();
 
@@ -34,7 +34,7 @@ async function agregarRegistro() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/registros`, {
+    const response = await fetch(`${BASE_URL}/registro`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, valor })
@@ -42,7 +42,7 @@ async function agregarRegistro() {
 
     if (!response.ok) throw new Error('Error al agregar el registro');
     alert('Registro agregado exitosamente');
-    consultarRegistros();
+    consultarRegistro();
   } catch (error) {
     console.error('Error:', error.message);
     alert('No se pudo agregar el registro');
