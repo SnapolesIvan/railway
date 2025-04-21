@@ -6,35 +6,35 @@ const PORT = process.env.PORT || 3000;
 // Configuración de conexión a PostgreSQL en Railway
 const pool = new Pool({
   connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@postgres.railway.internal:5432/railway',
-  ssl: { rejectUnauthorized: false } // Habilita SSL para conexiones seguras en Railway
+  ssl: { rejectUnauthorized: false } // Habilita SSL para conexiones seguras
 });
 
 // Middleware para manejar solicitudes JSON
 app.use(express.json());
 
-// Probar la conexión a la base de datos
+// Probar la conexión
 app.get('/prueba', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()'); // Prueba básica de conexión
+    const result = await pool.query('SELECT NOW()');
     res.status(200).send(`Conexión exitosa: ${result.rows[0].now}`);
   } catch (err) {
     console.error('Error en la conexión:', err.message);
-    res.status(500).send('Error en la conexión a la base de datos');
+    res.status(500).send('Error al conectar con la base de datos');
   }
 });
 
-// Ruta para obtener todos los registros de la tabla `registro`
+// Consultar todos los registros
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
     res.status(200).json(result.rows);
   } catch (err) {
     console.error('Error al consultar registros:', err.message);
-    res.status(500).send('No se pueden consultar los registros en este momento');
+    res.status(500).send('Error al consultar registros');
   }
 });
 
-// Ruta para agregar un nuevo registro a la tabla `registro`
+// Agregar un registro
 app.post('/registro', async (req, res) => {
   const { nombre, valor } = req.body;
 
@@ -44,14 +44,14 @@ app.post('/registro', async (req, res) => {
 
   try {
     await pool.query('INSERT INTO registro (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
-    res.status(201).send('Registro agregado exitosamente');
+    res.status(201).send('Registro agregado con éxito');
   } catch (err) {
-    console.error('Error al insertar registro:', err.message);
-    res.status(500).send('No se pudo agregar el registro');
+    console.error('Error al agregar registro:', err.message);
+    res.status(500).send('Error al agregar registro');
   }
 });
 
-// Ruta para editar un registro existente en la tabla `registro`
+// Editar un registro
 app.put('/registro/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, valor } = req.body;
@@ -70,14 +70,14 @@ app.put('/registro/:id', async (req, res) => {
       return res.status(404).send('El registro no existe');
     }
 
-    res.status(200).send('Registro actualizado exitosamente');
+    res.status(200).send('Registro actualizado con éxito');
   } catch (err) {
     console.error('Error al actualizar registro:', err.message);
-    res.status(500).send('No se pudo actualizar el registro');
+    res.status(500).send('Error al actualizar registro');
   }
 });
 
-// Ruta para eliminar un registro existente en la tabla `registro`
+// Eliminar un registro
 app.delete('/registro/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -88,14 +88,12 @@ app.delete('/registro/:id', async (req, res) => {
       return res.status(404).send('El registro no existe');
     }
 
-    res.status(200).send('Registro eliminado exitosamente');
+    res.status(200).send('Registro eliminado con éxito');
   } catch (err) {
     console.error('Error al eliminar registro:', err.message);
-    res.status(500).send('No se pudo eliminar el registro');
+    res.status(500).send('Error al eliminar registro');
   }
 });
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
