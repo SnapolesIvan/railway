@@ -31,6 +31,12 @@ function consultarRegistros() {
 function agregarRegistro() {
   const nombre = prompt('Introduce el nombre:');
   const valor = prompt('Introduce el valor:');
+
+  if (!nombre || !valor) {
+    alert('Por favor, completa todos los campos');
+    return;
+  }
+
   fetch(`${BASE_URL}/registros`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -51,6 +57,7 @@ function editarRegistro() {
   const id = prompt('Introduce el ID del registro:');
   const nombre = prompt('Introduce el nuevo nombre:');
   const valor = prompt('Introduce el nuevo valor:');
+
   fetch(`${BASE_URL}/registros/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -69,6 +76,7 @@ function editarRegistro() {
 
 function eliminarRegistro() {
   const id = prompt('Introduce el ID del registro:');
+
   fetch(`${BASE_URL}/registros/${id}`, { method: 'DELETE' })
     .then(response => {
       if (!response.ok) throw new Error('Error al eliminar el registro');
