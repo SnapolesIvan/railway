@@ -10,51 +10,68 @@ body {
   margin: auto;
 }
 
-/* Estilo para el encabezado */
 header {
-  display: flex; /* Usar diseño flexbox */
-  flex-direction: row; /* Alinear elementos en una fila */
-  align-items: center; /* Centrar elementos verticalmente */
-  justify-content: flex-start; /* Mantener todo alineado al lado izquierdo */
+  display: flex; /* Diseño flexible */
+  flex-direction: row; /* Alinear elementos en fila */
+  align-items: center;
+  justify-content: flex-start; /* Elementos alineados a la izquierda */
   background-color: #003366; /* Azul UDGVirtual */
-  padding: 20px; /* Espaciado alrededor */
-  color: #FFFFFF; /* Blanco */
-  box-shadow: none; /* Sin sombra */
+  padding: 20px;
+  color: #FFFFFF;
 }
 
 header img {
   height: 50px; /* Tamaño del logo */
-  margin-right: 15px; /* Espaciado entre el logo y el título */
+  margin-right: 15px; /* Separación entre el logo y el título */
 }
 
 header h1 {
   color: #FFFFFF; /* Título en blanco */
-  text-align: left; /* Texto alineado a la izquierda */
+  text-align: left; /* Alinear a la izquierda */
   margin: 0; /* Sin márgenes */
 }
 
-/* Alineación para la sección "Video Streaming" */
-h2 {
-  text-align: left; /* Título alineado a la izquierda */
+.udg-virtual-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinear elementos a la izquierda */
+  margin: 20px 0; /* Separación de otros elementos */
+}
+
+.udg-virtual-logo img {
+  max-width: 300px; /* Tamaño máximo del logo */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.descripcion-web {
+  text-align: left;
+  font-size: 16px;
   color: #003366; /* Azul marino */
-  margin: 20px 0; /* Separación con los elementos circundantes */
+  font-weight: bold;
+}
+
+h2 {
+  text-align: left;
+  color: #003366;
+  margin: 20px 0;
 }
 
 .content a {
-  text-align: left; /* Enlace alineado a la izquierda */
-  display: block; /* Enlace como un bloque para facilitar la alineación */
-  margin-top: 5px; /* Separación entre el título y el enlace */
-  color: #003366; /* Azul marino */
-  text-decoration: none; /* Eliminar subrayado */
+  text-align: left;
+  display: block;
+  margin-top: 5px;
+  color: #003366;
+  text-decoration: none;
 }
 
 .content a:hover {
-  text-decoration: underline; /* Subrayado al pasar el cursor */
+  text-decoration: underline;
 }
 
 footer {
-  background-color: #003366; /* Azul UDGVirtual */
-  color: #FFFFFF; /* Blanco */
+  background-color: #003366;
+  color: #FFFFFF;
   text-align: center;
   padding: 10px;
 }
@@ -65,7 +82,6 @@ footer {
 
 .content {
   padding: 20px;
-  text-align: left; /* Asegurar que el texto esté alineado a la izquierda */
 }
 
 .buttons button {
@@ -73,55 +89,33 @@ footer {
   background-color: #FFCC00; /* Amarillo UDGVirtual */
   border: none;
   padding: 10px;
-  color: #003366; /* Azul marino para el texto */
+  color: #003366; /* Azul marino */
   cursor: pointer;
   border-radius: 5px;
 }
 
 .buttons button:hover {
-  background-color: #003366; /* Fondo al pasar el cursor */
-  color: #FFCC00; /* Texto al pasar el cursor */
+  background-color: #003366;
+  color: #FFCC00;
 }
 
-/* Imagen y descripción del logo UDG alineado a la izquierda */
-.udg-virtual-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Alinear la imagen y descripción al lado izquierdo */
-  margin: 20px 0; /* Separación con los elementos circundantes */
-}
-
-.udg-virtual-logo img {
-  max-width: 300px; /* Tamaño máximo de la imagen */
-  height: auto;
-  margin-bottom: 10px; /* Separación entre la imagen y la descripción */
-}
-
-.descripcion-web {
-  text-align: left; /* Alinear el texto al lado izquierdo */
-  font-size: 16px;
-  color: #003366; /* Azul marino */
-  font-weight: bold;
-}
-
-/* Cuadro de registros */
 .registros-container {
   margin-top: 20px;
   padding: 15px;
-  border: 1px solid #003366; /* Borde azul */
+  border: 1px solid #003366;
   border-radius: 5px;
-  background-color: #f0f8ff; /* Fondo azul claro */
-  max-height: 300px; /* Altura máxima */
-  overflow-y: auto; /* Scroll si hay demasiados registros */
+  background-color: #f0f8ff;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .registros-container ul {
-  list-style-type: none; /* Sin estilo de lista */
+  list-style-type: none;
   padding: 0;
 }
 
 .registros-container li {
-  margin: 5px 0; /* Separación entre elementos */
+  margin: 5px 0;
   padding: 5px;
-  border-bottom: 1px solid #003366; /* Separación entre registros */
+  border-bottom: 1px solid #003366;
 }
