@@ -1,9 +1,9 @@
-const BASE_URL = 'https://entorno-web.up.railway.app'; // URL del backend en Railway
+const BASE_URL = 'https://entorno-web.up.railway.app'; // URL del backend
 
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
-    if (!response.ok) throw new Error('Error al consultar los registros');
+    if (!response.ok) throw new Error('Error al consultar registros');
     const data = await response.json();
 
     const registrosContainer = document.getElementById('registros-container');
