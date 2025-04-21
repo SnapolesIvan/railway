@@ -3,7 +3,7 @@ const { Pool } = require('pg'); // Cliente de PostgreSQL
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuración de conexión a PostgreSQL con Railway
+// Configuración de conexión a PostgreSQL en Railway
 const pool = new Pool({
   connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@postgres.railway.internal:5432/railway'
 });
@@ -26,7 +26,6 @@ app.get('/registros', async (req, res) => {
 app.post('/registros', async (req, res) => {
   const { nombre, valor } = req.body;
 
-  // Validación de datos
   if (!nombre || !valor) {
     return res.status(400).send('Los campos nombre y valor son obligatorios');
   }
@@ -84,10 +83,6 @@ app.delete('/registros/:id', async (req, res) => {
   }
 });
 
-// Inicialización del servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
 // Inicialización del servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
