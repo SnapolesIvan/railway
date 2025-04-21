@@ -7,11 +7,11 @@ const PORT = process.env.PORT || 3000;
 const pool = new Pool({
   connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@gondola.proxy.rlwy.net:56083/railway',
   ssl: {
-    rejectUnauthorized: false // Esto es necesario en Railway para conexiones seguras
+    rejectUnauthorized: false // Habilita SSL para conexiones seguras en Railway
   }
 });
 
-// Middleware para manejar JSON
+// Middleware para manejar solicitudes JSON
 app.use(express.json());
 
 // Ruta para consultar todos los registros
