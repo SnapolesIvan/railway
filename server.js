@@ -1,21 +1,21 @@
 const express = require('express');
-const { Pool } = require('pg'); // PostgreSQL client
+const { Pool } = require('pg'); // Cliente de PostgreSQL
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configuración de conexión a PostgreSQL en Railway
 const pool = new Pool({
-  connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@gondola.proxy.rlwy.net:56083/railway',
-  ssl: { rejectUnauthorized: false }
+  connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@postgres.railway.internal:5432/railway',
+  ssl: { rejectUnauthorized: false } // Habilita SSL para conexiones seguras en Railway
 });
 
-// Middleware para manejar JSON
+// Middleware para manejar solicitudes JSON
 app.use(express.json());
 
 // Probar la conexión a la base de datos
 app.get('/prueba', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()');
+    const result = await pool.query('SELECT NOW()'); // Prueba básica de conexión
     res.status(200).send(`Conexión exitosa: ${result.rows[0].now}`);
   } catch (err) {
     console.error('Error en la conexión:', err.message);
