@@ -1,7 +1,9 @@
+const BASE_URL = 'https://entorno-web.up.railway.app'; // URL del backend alojado en Railway
+
 function consultarRegistros() {
-  fetch('/registros')
+  fetch(`${BASE_URL}/registros`)
     .then(response => {
-      if (!response.ok) throw new Error('Error al obtener los registros');
+      if (!response.ok) throw new Error('Error al obtener registros');
       return response.json();
     })
     .then(data => {
@@ -29,7 +31,7 @@ function consultarRegistros() {
 function agregarRegistro() {
   const nombre = prompt('Introduce el nombre:');
   const valor = prompt('Introduce el valor:');
-  fetch('/registros', {
+  fetch(`${BASE_URL}/registros`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nombre, valor }),
@@ -49,7 +51,7 @@ function editarRegistro() {
   const id = prompt('Introduce el ID del registro:');
   const nombre = prompt('Introduce el nuevo nombre:');
   const valor = prompt('Introduce el nuevo valor:');
-  fetch(`/registros/${id}`, {
+  fetch(`${BASE_URL}/registros/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nombre, valor }),
@@ -67,7 +69,7 @@ function editarRegistro() {
 
 function eliminarRegistro() {
   const id = prompt('Introduce el ID del registro:');
-  fetch(`/registros/${id}`, { method: 'DELETE' })
+  fetch(`${BASE_URL}/registros/${id}`, { method: 'DELETE' })
     .then(response => {
       if (!response.ok) throw new Error('Error al eliminar el registro');
       alert('Registro eliminado con éxito');
@@ -78,5 +80,3 @@ function eliminarRegistro() {
       alert('Error al eliminar el registro');
     });
 }
-
-
