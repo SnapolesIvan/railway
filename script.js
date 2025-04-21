@@ -1,4 +1,4 @@
-const BASE_URL = 'https://entorno-web.up.railway.app'; // Backend URL
+const BASE_URL = 'https://entorno-web.up.railway.app'; // URL del backend en Railway
 
 async function consultarRegistro() {
   try {
