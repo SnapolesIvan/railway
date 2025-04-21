@@ -3,12 +3,10 @@ const { Pool } = require('pg'); // PostgreSQL client
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuración de la conexión a PostgreSQL (Railway)
+// Configuración de conexión a PostgreSQL en Railway
 const pool = new Pool({
   connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@gondola.proxy.rlwy.net:56083/railway',
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: { rejectUnauthorized: false }
 });
 
 // Middleware para manejar JSON
@@ -17,7 +15,7 @@ app.use(express.json());
 // Probar la conexión a la base de datos
 app.get('/prueba', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()'); // Consulta básica para verificar conexión
+    const result = await pool.query('SELECT NOW()');
     res.status(200).send(`Conexión exitosa: ${result.rows[0].now}`);
   } catch (err) {
     console.error('Error en la conexión:', err.message);
@@ -25,10 +23,10 @@ app.get('/prueba', async (req, res) => {
   }
 });
 
-// Ruta para obtener todos los registros
-app.get('/registros', async (req, res) => {
+// Ruta para obtener todos los registros de la tabla `registro`
+app.get('/registro', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM registros ORDER BY id ASC');
+    const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
     res.status(200).json(result.rows);
   } catch (err) {
     console.error('Error al consultar registros:', err.message);
@@ -36,8 +34,8 @@ app.get('/registros', async (req, res) => {
   }
 });
 
-// Ruta para agregar un nuevo registro
-app.post('/registros', async (req, res) => {
+// Ruta para agregar un nuevo registro a la tabla `registro`
+app.post('/registro', async (req, res) => {
   const { nombre, valor } = req.body;
 
   if (!nombre || !valor) {
@@ -45,7 +43,7 @@ app.post('/registros', async (req, res) => {
   }
 
   try {
-    await pool.query('INSERT INTO registros (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
+    await pool.query('INSERT INTO registro (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
     res.status(201).send('Registro agregado exitosamente');
   } catch (err) {
     console.error('Error al insertar registro:', err.message);
@@ -53,8 +51,8 @@ app.post('/registros', async (req, res) => {
   }
 });
 
-// Ruta para editar un registro existente
-app.put('/registros/:id', async (req, res) => {
+// Ruta para editar un registro existente en la tabla `registro`
+app.put('/registro/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, valor } = req.body;
 
@@ -64,7 +62,7 @@ app.put('/registros/:id', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'UPDATE registros SET nombre = $1, valor = $2 WHERE id = $3',
+      'UPDATE registro SET nombre = $1, valor = $2 WHERE id = $3',
       [nombre, valor, id]
     );
 
@@ -79,12 +77,12 @@ app.put('/registros/:id', async (req, res) => {
   }
 });
 
-// Ruta para eliminar un registro existente
-app.delete('/registros/:id', async (req, res) => {
+// Ruta para eliminar un registro existente en la tabla `registro`
+app.delete('/registro/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await pool.query('DELETE FROM registros WHERE id = $1', [id]);
+    const result = await pool.query('DELETE FROM registro WHERE id = $1', [id]);
 
     if (result.rowCount === 0) {
       return res.status(404).send('El registro no existe');
