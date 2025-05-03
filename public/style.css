@@ -12,12 +12,10 @@ body {
 
 header {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
   background-color: #003366;
   padding: 20px;
-  color: #FFFFFF;
+  color: #fff;
 }
 
 header img {
@@ -25,59 +23,17 @@ header img {
   margin-right: 15px;
 }
 
-header h1 {
-  color: #FFFFFF;
-  text-align: left;
-  margin: 0;
-}
-
 .udg-virtual-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   margin: 20px 0;
-}
-
-.udg-virtual-logo img {
-  max-width: 300px;
-  height: auto;
-  margin-bottom: 10px;
 }
 
 .descripcion-web {
-  text-align: left;
-  font-size: 16px;
-  color: #003366;
   font-weight: bold;
-}
-
-h2 {
-  text-align: left;
   color: #003366;
-  margin: 20px 0;
 }
 
-.content a {
-  text-align: left;
-  display: block;
-  margin-top: 5px;
-  color: #003366;
-  text-decoration: none;
-}
-
-.content a:hover {
-  text-decoration: underline;
-}
-
-footer {
-  background-color: #003366;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 10px;
-}
-
-.footer-content {
-  margin-top: 20px;
+.buttons {
+  margin-bottom: 15px;
 }
 
 .buttons button {
@@ -97,34 +53,40 @@ footer {
 
 .registros-container {
   margin-top: 20px;
-  padding: 15px;
+  background: #f0f8ff;
+  padding: 10px;
   border: 1px solid #003366;
   border-radius: 5px;
-  background-color: #f0f8ff;
   max-height: 400px;
   overflow-y: auto;
 }
 
 .registro-item {
-  margin: 10px 0;
+  background-color: #ffffff;
+  margin-bottom: 10px;
   padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .registro-item button {
   margin-left: 10px;
-  background-color: #FFCC00;
-  border: none;
   padding: 5px 10px;
-  color: #003366;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
   cursor: pointer;
-  border-radius: 4px;
 }
 
 .registro-item button:hover {
+  background-color: #0056b3;
+}
+
+footer {
   background-color: #003366;
-  color: #FFCC00;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 10px;
 }
 
