@@ -1,42 +1,75 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
+const express = require('express');
+const { Pool } = require('pg');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DB_URI = "mongodb+srv://usuario:contraseña@cluster.mongodb.net/registros";
 
-app.use(express.json());
+// Configuración PostgreSQL Railway
+const pool = new Pool({
+  connectionString: 'TU_URL_DE_CONEXIÓN',
+  ssl: { rejectUnauthorized: false },
+});
+
 app.use(cors());
+app.use(express.json());
 
-mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Conectado a la base de datos"))
-  .catch(err => console.error("Error al conectar con la DB:", err));
+// Crear tabla si no existe
+(async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS registro (
+      id SERIAL PRIMARY KEY,
+      nombre TEXT NOT NULL,
+      valor TEXT NOT NULL
+    );
+  `);
+})();
 
-const registroSchema = new mongoose.Schema({
-  nombre: String,
-  valor: String,
+// Rutas
+app.get('/', (req, res) => {
+  res.send('Backend funcionando correctamente');
 });
 
-const Registro = mongoose.model("Registro", registroSchema);
-
-app.get("/registro", async (req, res) => {
-  res.json(await Registro.find());
+app.get('/registro', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).send('Error al obtener registros');
+  }
 });
 
-app.post("/registro", async (req, res) => {
-  await new Registro(req.body).save();
-  res.json({ mensaje: "Registro agregado exitosamente" });
+app.post('/registro', async (req, res) => {
+  const { nombre, valor } = req.body;
+  try {
+    await pool.query('INSERT INTO registro (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
+    res.status(201).send('Registro agregado');
+  } catch (err) {
+    res.status(500).send('Error al agregar');
+  }
 });
 
-app.put("/registro/:id", async (req, res) => {
-  await Registro.findByIdAndUpdate(req.params.id, req.body);
-  res.json({ mensaje: "Registro editado exitosamente" });
+app.put('/registro/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, valor } = req.body;
+  try {
+    await pool.query('UPDATE registro SET nombre=$1, valor=$2 WHERE id=$3', [nombre, valor, id]);
+    res.send('Registro actualizado');
+  } catch (err) {
+    res.status(500).send('Error al editar');
+  }
 });
 
-app.delete("/registro/:id", async (req, res) => {
-  await Registro.findByIdAndDelete(req.params.id);
-  res.json({ mensaje: "Registro eliminado exitosamente" });
+app.delete('/registro/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query('DELETE FROM registro WHERE id=$1', [id]);
+    res.send('Registro eliminado');
+  } catch (err) {
+    res.status(500).send('Error al eliminar');
+  }
 });
 
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
