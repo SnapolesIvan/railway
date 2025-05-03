@@ -101,17 +101,16 @@ footer {
   border: 1px solid #003366;
   border-radius: 5px;
   background-color: #f0f8ff;
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
-/* Estilos agregados para cada registro */
 .registro-item {
   margin: 10px 0;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .registro-item button {
@@ -128,3 +127,4 @@ footer {
   background-color: #003366;
   color: #FFCC00;
 }
+
