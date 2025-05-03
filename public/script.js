@@ -15,7 +15,15 @@ async function consultarRegistro() {
     } else {
       data.forEach(registro => {
         const item = document.createElement('div');
-        item.innerHTML = `<strong>ID:</strong> ${registro.id}, <strong>Nombre:</strong> ${registro.nombre}, <strong>Valor:</strong> ${registro.valor}`;
+        item.classList.add('registro-item');
+        item.innerHTML = `
+          <p><strong>ID:</strong> ${registro.id}</p>
+          <p><strong>Nombre:</strong> ${registro.nombre}</p>
+          <p><strong>Valor:</strong> ${registro.valor}</p>
+          <button onclick="editarRegistro(${registro.id}, '${registro.nombre}', '${registro.valor}')">Editar</button>
+          <button onclick="eliminarRegistro(${registro.id})">Eliminar</button>
+          <hr>
+        `;
         registrosContainer.appendChild(item);
       });
     }
@@ -56,12 +64,11 @@ async function agregarRegistro() {
 }
 
 // Editar registro
-async function editarRegistro() {
-  const id = prompt('Introduce el ID del registro a editar:');
-  const nombre = prompt('Nuevo nombre:');
-  const valor = prompt('Nuevo valor:');
+async function editarRegistro(id, nombreActual, valorActual) {
+  const nombre = prompt('Nuevo nombre:', nombreActual);
+  const valor = prompt('Nuevo valor:', valorActual);
 
-  if (!id || !nombre || !valor) {
+  if (!nombre || !valor) {
     alert('Todos los campos son obligatorios');
     return;
   }
@@ -87,13 +94,8 @@ async function editarRegistro() {
 }
 
 // Eliminar registro
-async function eliminarRegistro() {
-  const id = prompt('Introduce el ID del registro a eliminar:');
-
-  if (!id) {
-    alert('El ID es obligatorio');
-    return;
-  }
+async function eliminarRegistro(id) {
+  if (!confirm(`¿Estás seguro de eliminar el registro con ID ${id}?`)) return;
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
@@ -115,5 +117,3 @@ async function eliminarRegistro() {
 
 // Ejecutar al cargar la página
 window.onload = consultarRegistro;
-
-
