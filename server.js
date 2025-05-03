@@ -6,16 +6,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configurar conexión PostgreSQL
+// PostgreSQL (reemplaza tu string de conexión real)
 const pool = new Pool({
-  connectionString: 'TU_URL_DE_CONEXION',
+  connectionString: 'postgresql://usuario:contraseña@host:puerto/basededatos',
   ssl: { rejectUnauthorized: false }
 });
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos
 
 // Crear tabla si no existe
 (async () => {
@@ -27,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
         valor TEXT NOT NULL
       );
     `);
-    console.log('Tabla verificada o creada');
+    console.log('Tabla creada/verificada');
   } catch (error) {
     console.error('Error al crear tabla:', error.message);
   }
@@ -37,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
-    res.status(200).json(result.rows);
+    res.json(result.rows);
   } catch (err) {
     res.status(500).send('Error al consultar registros');
   }
@@ -51,7 +50,7 @@ app.post('/registro', async (req, res) => {
     await pool.query('INSERT INTO registro (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
     res.status(201).send('Registro agregado');
   } catch (err) {
-    res.status(500).send('Error al agregar registro');
+    res.status(500).send('Error al agregar');
   }
 });
 
@@ -59,29 +58,26 @@ app.put('/registro/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, valor } = req.body;
   try {
-    const result = await pool.query(
-      'UPDATE registro SET nombre = $1, valor = $2 WHERE id = $3',
-      [nombre, valor, id]
-    );
-    if (result.rowCount === 0) return res.status(404).send('Registro no encontrado');
-    res.send('Registro actualizado');
+    const result = await pool.query('UPDATE registro SET nombre=$1, valor=$2 WHERE id=$3', [nombre, valor, id]);
+    if (result.rowCount === 0) return res.status(404).send('No encontrado');
+    res.send('Actualizado');
   } catch (err) {
-    res.status(500).send('Error al actualizar registro');
+    res.status(500).send('Error al actualizar');
   }
 });
 
 app.delete('/registro/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query('DELETE FROM registro WHERE id = $1', [id]);
-    if (result.rowCount === 0) return res.status(404).send('Registro no encontrado');
-    res.send('Registro eliminado');
+    const result = await pool.query('DELETE FROM registro WHERE id=$1', [id]);
+    if (result.rowCount === 0) return res.status(404).send('No encontrado');
+    res.send('Eliminado');
   } catch (err) {
-    res.status(500).send('Error al eliminar registro');
+    res.status(500).send('Error al eliminar');
   }
 });
 
-// Ruta para servir index.html
+// Servir HTML en la raíz
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -89,5 +85,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
-
 
