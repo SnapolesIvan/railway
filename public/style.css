@@ -12,10 +12,12 @@ body {
 
 header {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   background-color: #003366;
   padding: 20px;
-  color: #fff;
+  color: #FFFFFF;
 }
 
 header img {
@@ -23,17 +25,63 @@ header img {
   margin-right: 15px;
 }
 
+header h1 {
+  color: #FFFFFF;
+  text-align: left;
+  margin: 0;
+}
+
 .udg-virtual-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 20px 0;
 }
 
+.udg-virtual-logo img {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
 .descripcion-web {
-  font-weight: bold;
+  text-align: left;
+  font-size: 16px;
   color: #003366;
+  font-weight: bold;
+}
+
+h2 {
+  text-align: left;
+  color: #003366;
+  margin: 20px 0;
+}
+
+.content a {
+  text-align: left;
+  display: block;
+  margin-top: 5px;
+  color: #003366;
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background-color: #003366;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 10px;
+}
+
+.footer-content {
+  margin-top: 20px;
 }
 
 .buttons {
-  margin-bottom: 15px;
+  margin: 20px 0;
 }
 
 .buttons button {
@@ -44,6 +92,7 @@ header img {
   color: #003366;
   cursor: pointer;
   border-radius: 5px;
+  font-weight: bold;
 }
 
 .buttons button:hover {
@@ -53,39 +102,41 @@ header img {
 
 .registros-container {
   margin-top: 20px;
-  background: #f0f8ff;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #003366;
   border-radius: 5px;
+  background-color: #f0f8ff;
   max-height: 400px;
   overflow-y: auto;
 }
 
+/* Estilo de cada registro */
 .registro-item {
-  background-color: #ffffff;
-  margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  background-color: #ffffffcc;
+  border: 1px solid #003366;
   border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
+/* Botones dentro del registro */
 .registro-item button {
   margin-left: 10px;
-  padding: 5px 10px;
-  background-color: #007BFF;
-  color: #fff;
+  background-color: #003366;
+  color: white;
   border: none;
-  border-radius: 3px;
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .registro-item button:hover {
-  background-color: #0056b3;
-}
-
-footer {
-  background-color: #003366;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 10px;
+  background-color: #ffcc00;
+  color: #003366;
 }
