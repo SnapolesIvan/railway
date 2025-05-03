@@ -1,6 +1,6 @@
-const BASE_URL = 'https://entorno-web.up.railway.app'; // URL del backend
+const BASE_URL = 'https://entorno-web.up.railway.app';
 
-// **Función para consultar registros**
+// Consultar registros
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
@@ -10,7 +10,7 @@ async function consultarRegistro() {
     const registrosContainer = document.getElementById('registros-container');
 
     if (!registrosContainer) {
-      console.error('Elemento "registros-container" no encontrado en el DOM');
+      console.error('Elemento "registros-container" no encontrado');
       return;
     }
 
@@ -21,23 +21,23 @@ async function consultarRegistro() {
     } else {
       data.forEach(registro => {
         const item = document.createElement('div');
-        item.innerHTML = `ID: ${registro.id}, Nombre: ${registro.nombre}, Valor: ${registro.valor}`;
+        item.innerHTML = `<strong>ID:</strong> ${registro.id}, <strong>Nombre:</strong> ${registro.nombre}, <strong>Valor:</strong> ${registro.valor}`;
         registrosContainer.appendChild(item);
       });
     }
   } catch (error) {
     console.error('Error al consultar registros:', error.message);
-    alert('No se pudieron consultar los registros. Verifica la conexión con el servidor.');
+    alert('Error al obtener los registros.');
   }
 }
 
-// **Función para agregar un nuevo registro**
+// Agregar registro
 async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
 
   if (!nombre || !valor) {
-    alert('Debes proporcionar ambos campos');
+    alert('Ambos campos son obligatorios');
     return;
   }
 
@@ -48,14 +48,14 @@ async function agregarRegistro() {
       body: JSON.stringify({ nombre, valor }),
     });
 
-    const resultText = await response.text(); // Captura la respuesta del servidor
+    const result = await response.text();
 
-    if (!response.ok) throw new Error(`Error al agregar el registro: ${response.status} - ${resultText}`);
+    if (!response.ok) throw new Error(`Error al agregar: ${response.status} - ${result}`);
 
-    alert('Registro agregado exitosamente');
-    consultarRegistro();
+    alert('Registro agregado con éxito');
+    consultarRegistro(); // Recarga los registros
   } catch (error) {
     console.error('Error al agregar registro:', error.message);
-    alert('No se pudo agregar el registro. Verifica la conexión con el servidor.');
+    alert('No se pudo agregar el registro.');
   }
 }
