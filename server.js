@@ -15,7 +15,7 @@ const pool = new Pool({
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML y JS desde carpeta "public"
+app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos (index.html, script.js, style.css)
 
 // Crear tabla si no existe
 (async () => {
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML y JS des
   }
 })();
 
-// Rutas
+// Rutas API
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
@@ -97,7 +97,13 @@ app.delete('/registro/:id', async (req, res) => {
   }
 });
 
+// Ruta raíz para servir index.html al entrar directamente a la raíz
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
