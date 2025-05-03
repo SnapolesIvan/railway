@@ -15,7 +15,7 @@ const pool = new Pool({
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML y JS desde carpeta "public"
+app.use(express.static(path.join(__dirname, 'public'))); // ← Esta línea sirve el HTML y JS desde la carpeta 'public'
 
 // Crear tabla si no existe
 (async () => {
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML y JS des
   }
 })();
 
-// Rutas
+// API: Obtener todos los registros
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
@@ -44,6 +44,7 @@ app.get('/registro', async (req, res) => {
   }
 });
 
+// API: Agregar nuevo registro
 app.post('/registro', async (req, res) => {
   const { nombre, valor } = req.body;
   if (!nombre || !valor) {
@@ -59,6 +60,7 @@ app.post('/registro', async (req, res) => {
   }
 });
 
+// API: Editar registro
 app.put('/registro/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, valor } = req.body;
@@ -82,6 +84,7 @@ app.put('/registro/:id', async (req, res) => {
   }
 });
 
+// API: Eliminar registro
 app.delete('/registro/:id', async (req, res) => {
   const { id } = req.params;
 
