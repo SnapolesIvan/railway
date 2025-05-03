@@ -1,5 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg'); // Cliente de PostgreSQL
+const cors = require('cors'); // Habilitar CORS para conexión con frontend
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -9,21 +10,22 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false } // Habilitar SSL para conexiones seguras
 });
 
-// Middleware para manejar solicitudes JSON
-app.use(express.json());
+// Middleware
+app.use(express.json()); // Manejo de solicitudes JSON
+app.use(cors()); // Habilita CORS para evitar problemas con el frontend
 
-// Probar la conexión a la base de datos
+// **Prueba de conexión a la base de datos**
 app.get('/prueba', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()'); // Consulta básica para verificar conexión
+    const result = await pool.query('SELECT NOW()'); // Verificar conexión
     res.status(200).send(`Conexión exitosa: ${result.rows[0].now}`);
   } catch (err) {
     console.error('Error al conectar con la base de datos:', err.message);
-    res.status(500).send('No se pudo conectar a la base de datos');
+    res.status(500).send('Error al conectar con la base de datos');
   }
 });
 
-// Consultar todos los registros
+// **Consultar todos los registros**
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
@@ -34,13 +36,30 @@ app.get('/registro', async (req, res) => {
   }
 });
 
-// Agregar un nuevo registro
+// **Consultar un registro por ID**
+app.get('/registro/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('SELECT * FROM registro WHERE id = $1', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send('Registro no encontrado');
+    }
+    res.status(200).json(result.rows[0]);
+  } catch (err) {
+    console.error('Error al consultar el registro:', err.message);
+    res.status(500).send('Error al consultar el registro');
+  }
+});
+
+// **Agregar un nuevo registro**
 app.post('/registro', async (req, res) => {
   const { nombre, valor } = req.body;
 
   if (!nombre || !valor) {
     return res.status(400).send('Los campos nombre y valor son obligatorios');
   }
+
+  console.log('Datos recibidos:', req.body); // Verificación de datos en consola
 
   try {
     await pool.query('INSERT INTO registro (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
@@ -51,7 +70,7 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-// Editar un registro existente
+// **Editar un registro existente**
 app.put('/registro/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, valor } = req.body;
@@ -77,7 +96,7 @@ app.put('/registro/:id', async (req, res) => {
   }
 });
 
-// Eliminar un registro existente
+// **Eliminar un registro existente**
 app.delete('/registro/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -95,5 +114,5 @@ app.delete('/registro/:id', async (req, res) => {
   }
 });
 
-// Iniciar el servidor
+// **Iniciar el servidor**
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
