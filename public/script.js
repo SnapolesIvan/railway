@@ -7,21 +7,21 @@ async function consultarRegistro() {
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
 
-    const registrosContainer = document.getElementById('registros-container');
-    registrosContainer.innerHTML = '';
+    const container = document.getElementById('registros-container');
+    container.innerHTML = '';
 
     if (data.length === 0) {
-      registrosContainer.innerHTML = '<p>No hay registros disponibles.</p>';
+      container.innerHTML = '<p>No hay registros disponibles.</p>';
     } else {
       data.forEach(registro => {
         const div = document.createElement('div');
         div.className = 'registro-item';
         div.innerHTML = `
           <span><strong>ID:</strong> ${registro.id} | <strong>Nombre:</strong> ${registro.nombre} | <strong>Valor:</strong> ${registro.valor}</span>
-          <button onclick="editarRegistro(${registro.id})">Editar</button>
-          <button onclick="eliminarRegistro(${registro.id})">Eliminar</button>
+          <button class="editar-btn" onclick="editarRegistro(${registro.id})">Editar</button>
+          <button class="eliminar-btn" onclick="eliminarRegistro(${registro.id})">Eliminar</button>
         `;
-        registrosContainer.appendChild(div);
+        container.appendChild(div);
       });
     }
   } catch (error) {
@@ -30,7 +30,6 @@ async function consultarRegistro() {
   }
 }
 
-// Agregar registro
 async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
@@ -54,7 +53,6 @@ async function agregarRegistro() {
   }
 }
 
-// Editar registro
 async function editarRegistro(id) {
   const nombre = prompt('Nuevo nombre:');
   const valor = prompt('Nuevo valor:');
@@ -78,7 +76,6 @@ async function editarRegistro(id) {
   }
 }
 
-// Eliminar registro
 async function eliminarRegistro(id) {
   if (!confirm('¿Estás seguro de eliminar este registro?')) return;
 
@@ -97,5 +94,5 @@ async function eliminarRegistro(id) {
   }
 }
 
-// Ejecutar al cargar
 window.onload = consultarRegistro;
+
