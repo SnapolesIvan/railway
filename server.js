@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuración PostgreSQL
+// Conexión a PostgreSQL (ajusta tu string de conexión si es necesario)
 const pool = new Pool({
   connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@gondola.proxy.rlwy.net:56083/railway',
   ssl: { rejectUnauthorized: false }
@@ -15,7 +15,7 @@ const pool = new Pool({
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos (index.html, script.js, style.css)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Crear tabla si no existe
 (async () => {
@@ -33,76 +33,18 @@ app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos est�
   }
 })();
 
-// Rutas API
+// Obtener todos los registros
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
     res.status(200).json(result.rows);
   } catch (err) {
     console.error('Error al consultar registros:', err.message);
-    res.status(500).send('No se pueden consultar los registros');
+    res.status(500).send('Error al consultar registros');
   }
 });
 
+// Agregar nuevo registro
 app.post('/registro', async (req, res) => {
-  const { nombre, valor } = req.body;
-  if (!nombre || !valor) {
-    return res.status(400).send('Los campos nombre y valor son obligatorios');
-  }
+  cons
 
-  try {
-    await pool.query('INSERT INTO registro (nombre, valor) VALUES ($1, $2)', [nombre, valor]);
-    res.status(201).send('Registro agregado exitosamente');
-  } catch (err) {
-    console.error('Error al agregar registro:', err.message);
-    res.status(500).send('No se pudo agregar el registro');
-  }
-});
-
-app.put('/registro/:id', async (req, res) => {
-  const { id } = req.params;
-  const { nombre, valor } = req.body;
-
-  if (!nombre || !valor) {
-    return res.status(400).send('Los campos nombre y valor son obligatorios');
-  }
-
-  try {
-    const result = await pool.query(
-      'UPDATE registro SET nombre = $1, valor = $2 WHERE id = $3',
-      [nombre, valor, id]
-    );
-    if (result.rowCount === 0) {
-      return res.status(404).send('Registro no encontrado');
-    }
-    res.status(200).send('Registro actualizado correctamente');
-  } catch (err) {
-    console.error('Error al actualizar registro:', err.message);
-    res.status(500).send('No se pudo actualizar el registro');
-  }
-});
-
-app.delete('/registro/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const result = await pool.query('DELETE FROM registro WHERE id = $1', [id]);
-    if (result.rowCount === 0) {
-      return res.status(404).send('Registro no encontrado');
-    }
-    res.status(200).send('Registro eliminado correctamente');
-  } catch (err) {
-    console.error('Error al eliminar registro:', err.message);
-    res.status(500).send('No se pudo eliminar el registro');
-  }
-});
-
-// Ruta raíz para servir index.html al entrar directamente a la raíz
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
