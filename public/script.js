@@ -4,6 +4,7 @@ async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
     const data = await response.json();
+
     const container = document.getElementById('registros-container');
     container.innerHTML = '';
 
@@ -14,87 +15,82 @@ async function consultarRegistro() {
 
     data.forEach(registro => {
       const div = document.createElement('div');
+      div.className = 'registro';
+
       div.innerHTML = `
         <p><strong>ID:</strong> ${registro.id}</p>
         <p><strong>Nombre:</strong> ${registro.nombre}</p>
         <p><strong>Valor:</strong> ${registro.valor}</p>
-        <button onclick="editarRegistro(${registro.id})">Editar</button>
-        <button onclick="eliminarRegistro(${registro.id})">Eliminar</button>
+        <button onclick="editarRegistro(${registro.id})">Editar Registro</button>
+        <button onclick="eliminarRegistro(${registro.id})">Eliminar Registro</button>
         <hr/>
       `;
+
       container.appendChild(div);
     });
-  } catch (err) {
-    console.error('Error al consultar:', err.message);
-    alert('No se pudieron obtener los registros.');
+  } catch (error) {
+    console.error('Error al consultar:', error);
+    alert('Error al obtener registros');
   }
 }
 
 async function agregarRegistro() {
-  const nombre = prompt('Nombre del registro:');
-  const valor = prompt('Valor del registro:');
-
-  if (!nombre || !valor) {
-    alert('Ambos campos son obligatorios');
-    return;
-  }
+  const nombre = prompt('Introduce el nombre del registro:');
+  const valor = prompt('Introduce el valor del registro:');
+  if (!nombre || !valor) return alert('Todos los campos son obligatorios.');
 
   try {
     const response = await fetch(`${BASE_URL}/registro`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, valor })
+      body: JSON.stringify({ nombre, valor }),
     });
 
-    if (!response.ok) throw new Error('Error al agregar');
+    if (!response.ok) throw new Error('Error al agregar registro.');
     alert('Registro agregado');
     consultarRegistro();
-  } catch (err) {
-    console.error('Error al agregar registro:', err.message);
-    alert('No se pudo agregar el registro.');
+  } catch (error) {
+    console.error(error);
+    alert('Error al agregar registro.');
   }
 }
 
 async function editarRegistro(id) {
-  const nombre = prompt('Nuevo nombre:');
-  const valor = prompt('Nuevo valor:');
-
-  if (!nombre || !valor) {
-    alert('Ambos campos son obligatorios');
-    return;
-  }
+  const nuevoNombre = prompt('Nuevo nombre:');
+  const nuevoValor = prompt('Nuevo valor:');
+  if (!nuevoNombre || !nuevoValor) return alert('Todos los campos son obligatorios.');
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, valor })
+      body: JSON.stringify({ nombre: nuevoNombre, valor: nuevoValor }),
     });
 
-    if (!response.ok) throw new Error('Error al editar');
+    if (!response.ok) throw new Error('Error al editar registro.');
     alert('Registro editado');
     consultarRegistro();
-  } catch (err) {
-    console.error('Error al editar:', err.message);
-    alert('No se pudo editar el registro.');
+  } catch (error) {
+    console.error(error);
+    alert('Error al editar registro.');
   }
 }
 
 async function eliminarRegistro(id) {
-  const confirmacion = confirm('¿Estás seguro de eliminar este registro?');
-  if (!confirmacion) return;
+  const confirmar = confirm('¿Seguro que deseas eliminar este registro?');
+  if (!confirmar) return;
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     });
 
-    if (!response.ok) throw new Error('Error al eliminar');
+    if (!response.ok) throw new Error('Error al eliminar registro.');
     alert('Registro eliminado');
     consultarRegistro();
-  } catch (err) {
-    console.error('Error al eliminar:', err.message);
-    alert('No se pudo eliminar el registro.');
+  } catch (error) {
+    console.error(error);
+    alert('Error al eliminar registro.');
   }
 }
 
