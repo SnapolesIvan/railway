@@ -6,15 +6,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configurar conexión PostgreSQL
 const pool = new Pool({
-  connectionString: 'TU_URL_DE_CONEXION', // Reemplaza con tu cadena real
+  connectionString: 'TU_URL_DE_CONEXION',
   ssl: { rejectUnauthorized: false }
 });
 
-app.use(express.json());
+// Middlewares
 app.use(cors());
-
-// Servir archivos estáticos desde "public"
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Crear tabla si no existe
@@ -33,12 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
   }
 })();
 
-// Ruta base que envía el archivo HTML
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Obtener todos los registros
+// Rutas API
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
@@ -48,7 +43,6 @@ app.get('/registro', async (req, res) => {
   }
 });
 
-// Agregar nuevo registro
 app.post('/registro', async (req, res) => {
   const { nombre, valor } = req.body;
   if (!nombre || !valor) return res.status(400).send('Campos obligatorios');
@@ -61,14 +55,14 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-// Editar registro por ID
 app.put('/registro/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, valor } = req.body;
-  if (!nombre || !valor) return res.status(400).send('Campos obligatorios');
-
   try {
-    const result = await pool.query('UPDATE registro SET nombre=$1, valor=$2 WHERE id=$3', [nombre, valor, id]);
+    const result = await pool.query(
+      'UPDATE registro SET nombre = $1, valor = $2 WHERE id = $3',
+      [nombre, valor, id]
+    );
     if (result.rowCount === 0) return res.status(404).send('Registro no encontrado');
     res.send('Registro actualizado');
   } catch (err) {
@@ -76,11 +70,10 @@ app.put('/registro/:id', async (req, res) => {
   }
 });
 
-// Eliminar registro por ID
 app.delete('/registro/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query('DELETE FROM registro WHERE id=$1', [id]);
+    const result = await pool.query('DELETE FROM registro WHERE id = $1', [id]);
     if (result.rowCount === 0) return res.status(404).send('Registro no encontrado');
     res.send('Registro eliminado');
   } catch (err) {
@@ -88,8 +81,13 @@ app.delete('/registro/:id', async (req, res) => {
   }
 });
 
-// Iniciar servidor
+// Ruta para servir index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
 
