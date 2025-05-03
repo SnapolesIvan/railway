@@ -108,3 +108,4 @@ async function eliminarRegistro() {
 }
 
 window.onload = consultarRegistro;
+
