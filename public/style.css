@@ -89,29 +89,3 @@ footer {
   text-align: center;
   padding: 10px;
 }
-.buttons {
-  margin-bottom: 20px;
-}
-
-.buttons input, .buttons button {
-  margin: 5px 5px 5px 0;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 14px;
-}
-
-.buttons input {
-  width: 150px;
-}
-
-.buttons button {
-  background-color: #FFCC00;
-  color: #003366;
-  cursor: pointer;
-}
-
-.buttons button:hover {
-  background-color: #003366;
-  color: #FFCC00;
-}
