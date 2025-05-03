@@ -33,63 +33,6 @@ header img {
 }
 
 .buttons {
-  margin-bottom: 15px;
-}
-
-.buttons button {
-  margin-right: 10px;
-  background-color: #FFCC00;
-  border: none;
-  padding: 10px;
-  color: #003366;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.buttons button:hover {
-  background-color: #003366;
-  color: #FFCC00;
-}
-
-.registros-container {
-  margin-top: 20px;
-  background: #f0f8ff;
-  padding: 10px;
-  border: 1px solid #003366;
-  border-radius: 5px;
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.registro-item {
-  background-color: #ffffff;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.registro-item button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.registro-item button:hover {
-  background-color: #0056b3;
-}
-
-footer {
-  background-color: #003366;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 10px;
-}
-.buttons {
   margin-bottom: 20px;
 }
 
@@ -114,4 +57,46 @@ footer {
 .buttons button:hover {
   background-color: #003366;
   color: #FFCC00;
+}
+
+.registros-container {
+  margin-top: 20px;
+  background: #f0f8ff;
+  padding: 10px;
+  border: 1px solid #003366;
+  border-radius: 5px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.registro-item {
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.registro-item button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.registro-item button:hover {
+  background-color: #0056b3;
+}
+
+footer {
+  background-color: #003366;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 10px;
 }
