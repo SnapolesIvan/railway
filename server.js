@@ -6,18 +6,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Conexión a PostgreSQL en Railway
 const pool = new Pool({
   connectionString: 'postgresql://postgres:zWvCimOFvUXPSXDPiJBKkqPvgboEtGvv@gondola.proxy.rlwy.net:56083/railway',
   ssl: { rejectUnauthorized: false }
 });
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Crear tabla si no existe
 (async () => {
   try {
     await pool.query(`
@@ -33,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
   }
 })();
 
-// Obtener todos los registros
 app.get('/registro', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM registro ORDER BY id ASC');
@@ -44,7 +40,6 @@ app.get('/registro', async (req, res) => {
   }
 });
 
-// Agregar nuevo registro
 app.post('/registro', async (req, res) => {
   const { nombre, valor } = req.body;
   if (!nombre || !valor) {
@@ -60,8 +55,25 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+app.put('/registro/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, valor } = req.body;
+
+  if (!nombre || !valor) {
+    return res.status(400).send('Los campos nombre y valor son obligatorios');
+  }
+
+  try {
+    const result = await pool.query(
+      'UPDATE registro SET nombre = $1, valor = $2 WHERE id = $3',
+      [nombre, valor, id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).send('Registro no encontrado');
+    }
+
+    res.status(200).send('Registro actualizado correctamente');
+  } catch (err) {
+    console.error('Error al editar registro:', err.message);
 
