@@ -1,6 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg'); // Cliente de PostgreSQL
-const cors = require('cors'); // Habilitar CORS para conexión con frontend
+const cors = require('cors'); // Middleware para permitir solicitudes desde el frontend
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -14,10 +14,10 @@ const pool = new Pool({
 app.use(express.json()); // Manejo de solicitudes JSON
 app.use(cors()); // Habilita CORS para evitar problemas con el frontend
 
-// **Prueba de conexión a la base de datos**
+// **Probar conexión a la base de datos**
 app.get('/prueba', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()'); // Verificar conexión
+    const result = await pool.query('SELECT NOW()'); // Verificación de conexión
     res.status(200).send(`Conexión exitosa: ${result.rows[0].now}`);
   } catch (err) {
     console.error('Error al conectar con la base de datos:', err.message);
