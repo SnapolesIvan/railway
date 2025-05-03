@@ -1,17 +1,21 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const pool = new Pool({
-  connectionString: 'TU_URL_DE_CONEXION', // usa tu string real aquí
+  connectionString: 'TU_URL_DE_CONEXION', // Reemplaza con tu cadena real
   ssl: { rejectUnauthorized: false }
 });
 
 app.use(express.json());
 app.use(cors());
+
+// Servir archivos estáticos desde "public"
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Crear tabla si no existe
 (async () => {
@@ -29,9 +33,9 @@ app.use(cors());
   }
 })();
 
-// Ruta base
+// Ruta base que envía el archivo HTML
 app.get('/', (req, res) => {
-  res.send('Backend funcionando correctamente');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Obtener todos los registros
@@ -84,13 +88,8 @@ app.delete('/registro/:id', async (req, res) => {
   }
 });
 
-// Ruta para servir HTML
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
+// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
-
 
