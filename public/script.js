@@ -1,6 +1,6 @@
-const BASE_URL = 'https://entorno-web.up.railway.app'; // URL del backend
+const BASE_URL = 'https://entorno-web.up.railway.app';
 
-// Consultar todos los registros
+// Consultar registros
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
@@ -25,26 +25,7 @@ async function consultarRegistro() {
   }
 }
 
-// Consultar un registro por ID
-async function consultarIndividual() {
-  const id = prompt('Introduce el ID del registro:');
-  if (!id) return;
-
-  try {
-    const response = await fetch(`${BASE_URL}/registro/${id}`);
-    if (!response.ok) throw new Error(`No se encontró el registro con ID ${id}`);
-    const registro = await response.json();
-
-    const registrosContainer = document.getElementById('registros-container');
-    registrosContainer.innerHTML = `
-      <div><strong>ID:</strong> ${registro.id}, <strong>Nombre:</strong> ${registro.nombre}, <strong>Valor:</strong> ${registro.valor}</div>
-    `;
-  } catch (error) {
-    alert(error.message);
-  }
-}
-
-// Agregar nuevo registro
+// Agregar registro
 async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
@@ -58,27 +39,28 @@ async function agregarRegistro() {
     const response = await fetch(`${BASE_URL}/registro`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, valor }),
+      body: JSON.stringify({ nombre, valor })
     });
 
-    if (!response.ok) throw new Error('Error al agregar el registro');
+    const resultText = await response.text();
+    if (!response.ok) throw new Error(`Error al agregar: ${response.status} - ${resultText}`);
+
     alert('Registro agregado con éxito');
     consultarRegistro();
   } catch (error) {
-    alert(error.message);
+    console.error('Error al agregar registro:', error.message);
+    alert('No se pudo agregar el registro.');
   }
 }
 
-// Editar un registro
+// Editar registro
 async function editarRegistro() {
   const id = prompt('Introduce el ID del registro a editar:');
-  if (!id) return;
-
   const nombre = prompt('Nuevo nombre:');
   const valor = prompt('Nuevo valor:');
 
-  if (!nombre || !valor) {
-    alert('Ambos campos son obligatorios');
+  if (!id || !nombre || !valor) {
+    alert('Todos los campos son obligatorios');
     return;
   }
 
@@ -86,35 +68,43 @@ async function editarRegistro() {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, valor }),
+      body: JSON.stringify({ nombre, valor })
     });
 
-    if (!response.ok) throw new Error('Error al editar el registro');
-    alert('Registro editado con éxito');
+    const resultText = await response.text();
+    if (!response.ok) throw new Error(`Error al editar: ${response.status} - ${resultText}`);
+
+    alert('Registro editado correctamente');
     consultarRegistro();
   } catch (error) {
-    alert(error.message);
+    console.error('Error al editar registro:', error.message);
+    alert('No se pudo editar el registro.');
   }
 }
 
-// Eliminar un registro
+// Eliminar registro
 async function eliminarRegistro() {
   const id = prompt('Introduce el ID del registro a eliminar:');
-  if (!id) return;
+
+  if (!id) {
+    alert('El ID es obligatorio');
+    return;
+  }
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
-      method: 'DELETE',
+      method: 'DELETE'
     });
 
-    if (!response.ok) throw new Error('Error al eliminar el registro');
-    alert('Registro eliminado con éxito');
+    const resultText = await response.text();
+    if (!response.ok) throw new Error(`Error al eliminar: ${response.status} - ${resultText}`);
+
+    alert('Registro eliminado correctamente');
     consultarRegistro();
   } catch (error) {
-    alert(error.message);
+    console.error('Error al eliminar registro:', error.message);
+    alert('No se pudo eliminar el registro.');
   }
 }
 
 window.onload = consultarRegistro;
-
-
