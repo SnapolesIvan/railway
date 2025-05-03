@@ -2,7 +2,7 @@ const BASE_URL = 'https://entorno-web.up.railway.app';
 
 async function consultarRegistro() {
   try {
-    const response = await fetch(${BASE_URL}/registro);
+    const response = await fetch(`${BASE_URL}/registro`);
     const data = await response.json();
 
     const container = document.getElementById('registros-container');
@@ -14,7 +14,7 @@ async function consultarRegistro() {
       data.forEach(registro => {
         const div = document.createElement('div');
         div.className = 'registro-item';
-        div.textContent = ID: ${registro.id} | Nombre: ${registro.nombre} | Valor: ${registro.valor};
+        div.textContent = `ID: ${registro.id} | Nombre: ${registro.nombre} | Valor: ${registro.valor}`;
         container.appendChild(div);
       });
     }
@@ -31,7 +31,7 @@ async function agregarRegistro() {
   if (!nombre || !valor) return alert('Todos los campos son obligatorios.');
 
   try {
-    const response = await fetch(${BASE_URL}/registro, {
+    const response = await fetch(`${BASE_URL}/registro`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, valor })
@@ -57,7 +57,7 @@ async function editarRegistroDesdeInput() {
   if (!nombre || !valor) return alert('Todos los campos son obligatorios.');
 
   try {
-    const response = await fetch(${BASE_URL}/registro/${id}, {
+    const response = await fetch(`${BASE_URL}/registro/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, valor })
@@ -80,7 +80,7 @@ async function eliminarRegistroDesdeInput() {
   if (!confirm('¿Estás seguro de eliminar este registro?')) return;
 
   try {
-    const response = await fetch(${BASE_URL}/registro/${id}, {
+    const response = await fetch(`${BASE_URL}/registro/${id}`, {
       method: 'DELETE'
     });
 
