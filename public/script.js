@@ -42,8 +42,10 @@ async function agregarRegistro() {
       body: JSON.stringify({ nombre, valor })
     });
 
-    const resultText = await response.text();
-    if (!response.ok) throw new Error(`Error al agregar: ${response.status} - ${resultText}`);
+    if (!response.ok) {
+      const resultText = await response.text();
+      throw new Error(`Error al agregar: ${response.status} - ${resultText}`);
+    }
 
     alert('Registro agregado con éxito');
     consultarRegistro();
@@ -71,8 +73,10 @@ async function editarRegistro() {
       body: JSON.stringify({ nombre, valor })
     });
 
-    const resultText = await response.text();
-    if (!response.ok) throw new Error(`Error al editar: ${response.status} - ${resultText}`);
+    if (!response.ok) {
+      const resultText = await response.text();
+      throw new Error(`Error al editar: ${response.status} - ${resultText}`);
+    }
 
     alert('Registro editado correctamente');
     consultarRegistro();
@@ -96,8 +100,10 @@ async function eliminarRegistro() {
       method: 'DELETE'
     });
 
-    const resultText = await response.text();
-    if (!response.ok) throw new Error(`Error al eliminar: ${response.status} - ${resultText}`);
+    if (!response.ok) {
+      const resultText = await response.text();
+      throw new Error(`Error al eliminar: ${response.status} - ${resultText}`);
+    }
 
     alert('Registro eliminado correctamente');
     consultarRegistro();
@@ -107,5 +113,7 @@ async function eliminarRegistro() {
   }
 }
 
+// Ejecutar al cargar la página
 window.onload = consultarRegistro;
+
 
