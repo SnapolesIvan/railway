@@ -1,6 +1,6 @@
 const BASE_URL = 'https://entorno-web.up.railway.app';
+let registroSeleccionadoId = null;
 
-// Consultar registros
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
@@ -18,12 +18,13 @@ async function consultarRegistro() {
       const div = document.createElement('div');
       div.classList.add('registro-item');
       div.innerHTML = `
-        <p><strong>ID:</strong> ${registro.id} | <strong>Nombre:</strong> ${registro.nombre} | <strong>Valor:</strong> ${registro.valor}</p>
-        <div class="buttons">
-          <button onclick="editarRegistro(${registro.id})">Editar</button>
-          <button onclick="eliminarRegistro(${registro.id})">Eliminar</button>
-        </div>
+        <p onclick="seleccionarRegistro(${registro.id})" style="cursor: pointer;">
+          <strong>ID:</strong> ${registro.id} | <strong>Nombre:</strong> ${registro.nombre} | <strong>Valor:</strong> ${registro.valor}
+        </p>
       `;
+      if (registro.id === registroSeleccionadoId) {
+        div.style.backgroundColor = '#e0e0e0';
+      }
       container.appendChild(div);
     });
   } catch (error) {
@@ -32,7 +33,11 @@ async function consultarRegistro() {
   }
 }
 
-// Agregar registro
+function seleccionarRegistro(id) {
+  registroSeleccionadoId = id;
+  consultarRegistro();
+}
+
 async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
@@ -50,17 +55,19 @@ async function agregarRegistro() {
     });
 
     if (!response.ok) throw new Error('Error al agregar');
-
     alert('Registro agregado con éxito');
     consultarRegistro();
   } catch (error) {
-    console.error('Error al agregar registro:', error.message);
     alert('No se pudo agregar el registro.');
   }
 }
 
-// Editar registro
-async function editarRegistro(id) {
+async function editarRegistroSeleccionado() {
+  if (!registroSeleccionadoId) {
+    alert('Selecciona un registro primero');
+    return;
+  }
+
   const nombre = prompt('Nuevo nombre:');
   const valor = prompt('Nuevo valor:');
 
@@ -70,41 +77,42 @@ async function editarRegistro(id) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/registro/${id}`, {
+    const response = await fetch(`${BASE_URL}/registro/${registroSeleccionadoId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, valor })
     });
 
     if (!response.ok) throw new Error('Error al editar');
-
     alert('Registro editado correctamente');
     consultarRegistro();
   } catch (error) {
-    console.error('Error al editar registro:', error.message);
     alert('No se pudo editar el registro.');
   }
 }
 
-// Eliminar registro
-async function eliminarRegistro(id) {
-  const confirmar = confirm(`¿Estás seguro de eliminar el registro con ID ${id}?`);
+async function eliminarRegistroSeleccionado() {
+  if (!registroSeleccionadoId) {
+    alert('Selecciona un registro primero');
+    return;
+  }
+
+  const confirmar = confirm(`¿Eliminar el registro con ID ${registroSeleccionadoId}?`);
   if (!confirmar) return;
 
   try {
-    const response = await fetch(`${BASE_URL}/registro/${id}`, {
+    const response = await fetch(`${BASE_URL}/registro/${registroSeleccionadoId}`, {
       method: 'DELETE'
     });
 
     if (!response.ok) throw new Error('Error al eliminar');
-
     alert('Registro eliminado correctamente');
+    registroSeleccionadoId = null;
     consultarRegistro();
   } catch (error) {
-    console.error('Error al eliminar registro:', error.message);
     alert('No se pudo eliminar el registro.');
   }
 }
 
-// Cargar registros al iniciar
 window.onload = consultarRegistro;
+
