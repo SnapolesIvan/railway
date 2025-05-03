@@ -20,13 +20,13 @@ app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estÃ
 // Crear tabla si no existe
 (async () => {
   try {
-    await pool.query(
+    await pool.query(`
       CREATE TABLE IF NOT EXISTS registro (
         id SERIAL PRIMARY KEY,
         nombre TEXT NOT NULL,
         valor TEXT NOT NULL
       );
-    );
+    `);
     console.log('Tabla verificada o creada con Ã©xito');
   } catch (error) {
     console.error('Error al crear tabla:', error.message);
@@ -104,5 +104,5 @@ app.get('/', (req, res) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(Servidor corriendo en el puerto ${PORT});
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
