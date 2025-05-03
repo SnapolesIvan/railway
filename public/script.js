@@ -1,5 +1,6 @@
 const BASE_URL = 'https://entorno-web.up.railway.app';
 
+// Consultar registros
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
@@ -14,12 +15,12 @@ async function consultarRegistro() {
     } else {
       data.forEach(registro => {
         const item = document.createElement('div');
-        item.className = 'registro-item';
+        item.classList.add('registro-item');
         item.innerHTML = `
-          <strong>ID:</strong> ${registro.id} | 
-          <strong>Nombre:</strong> ${registro.nombre} | 
+          <strong>ID:</strong> ${registro.id},
+          <strong>Nombre:</strong> ${registro.nombre},
           <strong>Valor:</strong> ${registro.valor}
-          <button onclick="editarRegistro(${registro.id})">Editar</button>
+          <button onclick="editarRegistro(${registro.id}, '${registro.nombre}', '${registro.valor}')">Editar</button>
           <button onclick="eliminarRegistro(${registro.id})">Eliminar</button>
         `;
         registrosContainer.appendChild(item);
@@ -31,6 +32,7 @@ async function consultarRegistro() {
   }
 }
 
+// Agregar registro
 async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
@@ -52,16 +54,17 @@ async function agregarRegistro() {
     alert('Registro agregado con éxito');
     consultarRegistro();
   } catch (error) {
-    console.error('Error al agregar:', error.message);
+    console.error(error.message);
     alert('No se pudo agregar el registro.');
   }
 }
 
-async function editarRegistro(id) {
-  const nombre = prompt('Nuevo nombre:');
-  const valor = prompt('Nuevo valor:');
+// Editar registro
+async function editarRegistro(id, nombreActual, valorActual) {
+  const nuevoNombre = prompt('Nuevo nombre:', nombreActual);
+  const nuevoValor = prompt('Nuevo valor:', valorActual);
 
-  if (!nombre || !valor) {
+  if (!nuevoNombre || !nuevoValor) {
     alert('Todos los campos son obligatorios');
     return;
   }
@@ -70,7 +73,7 @@ async function editarRegistro(id) {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, valor })
+      body: JSON.stringify({ nombre: nuevoNombre, valor: nuevoValor })
     });
 
     if (!response.ok) throw new Error('Error al editar');
@@ -78,13 +81,14 @@ async function editarRegistro(id) {
     alert('Registro editado correctamente');
     consultarRegistro();
   } catch (error) {
-    console.error('Error al editar:', error.message);
+    console.error(error.message);
     alert('No se pudo editar el registro.');
   }
 }
 
+// Eliminar registro
 async function eliminarRegistro(id) {
-  if (!confirm('¿Estás seguro de eliminar este registro?')) return;
+  if (!confirm('¿Estás seguro de que deseas eliminar este registro?')) return;
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
@@ -96,10 +100,9 @@ async function eliminarRegistro(id) {
     alert('Registro eliminado correctamente');
     consultarRegistro();
   } catch (error) {
-    console.error('Error al eliminar:', error.message);
+    console.error(error.message);
     alert('No se pudo eliminar el registro.');
   }
 }
 
 window.onload = consultarRegistro;
-
