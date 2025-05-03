@@ -1,27 +1,28 @@
 const BASE_URL = 'https://entorno-web.up.railway.app';
 
-// Mostrar todos los registros
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
 
-    const container = document.getElementById('registros-container');
-    container.innerHTML = '';
+    const registrosContainer = document.getElementById('registros-container');
+    registrosContainer.innerHTML = '';
 
     if (data.length === 0) {
-      container.innerHTML = '<p>No hay registros disponibles.</p>';
+      registrosContainer.innerHTML = '<p>No hay registros disponibles.</p>';
     } else {
       data.forEach(registro => {
-        const div = document.createElement('div');
-        div.className = 'registro-item';
-        div.innerHTML = `
-          <span><strong>ID:</strong> ${registro.id} | <strong>Nombre:</strong> ${registro.nombre} | <strong>Valor:</strong> ${registro.valor}</span>
-          <button class="editar-btn" onclick="editarRegistro(${registro.id})">Editar</button>
-          <button class="eliminar-btn" onclick="eliminarRegistro(${registro.id})">Eliminar</button>
+        const item = document.createElement('div');
+        item.className = 'registro-item';
+        item.innerHTML = `
+          <strong>ID:</strong> ${registro.id} | 
+          <strong>Nombre:</strong> ${registro.nombre} | 
+          <strong>Valor:</strong> ${registro.valor}
+          <button onclick="editarRegistro(${registro.id})">Editar</button>
+          <button onclick="eliminarRegistro(${registro.id})">Eliminar</button>
         `;
-        container.appendChild(div);
+        registrosContainer.appendChild(item);
       });
     }
   } catch (error) {
@@ -34,7 +35,10 @@ async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
 
-  if (!nombre || !valor) return alert('Ambos campos son obligatorios.');
+  if (!nombre || !valor) {
+    alert('Ambos campos son obligatorios');
+    return;
+  }
 
   try {
     const response = await fetch(`${BASE_URL}/registro`, {
@@ -43,7 +47,7 @@ async function agregarRegistro() {
       body: JSON.stringify({ nombre, valor })
     });
 
-    if (!response.ok) throw new Error(await response.text());
+    if (!response.ok) throw new Error('Error al agregar');
 
     alert('Registro agregado con éxito');
     consultarRegistro();
@@ -57,7 +61,10 @@ async function editarRegistro(id) {
   const nombre = prompt('Nuevo nombre:');
   const valor = prompt('Nuevo valor:');
 
-  if (!nombre || !valor) return alert('Todos los campos son obligatorios.');
+  if (!nombre || !valor) {
+    alert('Todos los campos son obligatorios');
+    return;
+  }
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
@@ -66,9 +73,9 @@ async function editarRegistro(id) {
       body: JSON.stringify({ nombre, valor })
     });
 
-    if (!response.ok) throw new Error(await response.text());
+    if (!response.ok) throw new Error('Error al editar');
 
-    alert('Registro actualizado correctamente');
+    alert('Registro editado correctamente');
     consultarRegistro();
   } catch (error) {
     console.error('Error al editar:', error.message);
@@ -84,7 +91,7 @@ async function eliminarRegistro(id) {
       method: 'DELETE'
     });
 
-    if (!response.ok) throw new Error(await response.text());
+    if (!response.ok) throw new Error('Error al eliminar');
 
     alert('Registro eliminado correctamente');
     consultarRegistro();
