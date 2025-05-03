@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestión de Registros</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <header>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu26kbYotQtBC77tSsOlxWXwrf3UX-Vj0NHA&s" alt="Logo del sitio">
+      <img src="logo.png" alt="Logo" />
       <h1>Gestión de Registros</h1>
     </header>
 
-    <div class="content">
-      <div class="udg-virtual-logo">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-54rddyjZmKI9gjYbZ-bqVZr_gGzeyujaAg&s" alt="UDGVirtual Logo">
-        <p class="descripcion-web">Repositorio en GitHub y deploy en Railway con una base de datos en Postgres SQL</p>
-      </div>
-
-      <h2>Video Streaming</h2>
-      <a href="https://youtu.be/JuNIp2-zTdc?si=AjkxlfEoXjzEgafw" target="_blank" class="video-link">Ver el video</a>
-
-      <div class="buttons">
-        <button onclick="consultarRegistro()">Consultar Registros</button>
-        <button onclick="agregarRegistro()">Agregar</button>
-      </div>
-
-      <div id="registros-container" class="registros-container"></div>
+    <div class="buttons">
+      <button onclick="agregarRegistro()">Agregar Registro</button>
+      <button onclick="consultarRegistro()">Consultar Registros</button>
     </div>
 
-    <footer>
-      <div class="footer-content">
-        <p>Materia: Conceptualización de servicios en la nube</p>
-        <p>Nombre: Sergio Nápoles Chavez</p>
-        <p>Código: 215081988</p>
-        <p>Contacto: sergio.napoles8198@alumnos.udg.mx</p>
-      </div>
-    </footer>
+    <div id="registros-container" class="registros-container"></div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
