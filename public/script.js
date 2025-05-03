@@ -1,6 +1,5 @@
 const BASE_URL = 'https://entorno-web.up.railway.app';
 
-// Consultar registros
 async function consultarRegistro() {
   try {
     const response = await fetch(`${BASE_URL}/registro`);
@@ -32,7 +31,6 @@ async function consultarRegistro() {
   }
 }
 
-// Agregar registro
 async function agregarRegistro() {
   const nombre = prompt('Introduce el nombre del registro:');
   const valor = prompt('Introduce el valor del registro:');
@@ -49,10 +47,7 @@ async function agregarRegistro() {
       body: JSON.stringify({ nombre, valor })
     });
 
-    if (!response.ok) {
-      const resultText = await response.text();
-      throw new Error(`Error al agregar: ${response.status} - ${resultText}`);
-    }
+    if (!response.ok) throw new Error(await response.text());
 
     alert('Registro agregado con éxito');
     consultarRegistro();
@@ -62,7 +57,6 @@ async function agregarRegistro() {
   }
 }
 
-// Editar registro
 async function editarRegistro(id, nombreActual, valorActual) {
   const nuevoNombre = prompt('Nuevo nombre:', nombreActual);
   const nuevoValor = prompt('Nuevo valor:', valorActual);
@@ -79,44 +73,33 @@ async function editarRegistro(id, nombreActual, valorActual) {
       body: JSON.stringify({ nombre: nuevoNombre, valor: nuevoValor })
     });
 
-    const resultText = await response.text();
-
-    if (!response.ok) {
-      throw new Error(`Error al editar: ${response.status} - ${resultText}`);
-    }
+    if (!response.ok) throw new Error(await response.text());
 
     alert('Registro editado correctamente');
     consultarRegistro();
   } catch (error) {
     console.error('Error al editar registro:', error.message);
-    alert(error.message);
+    alert('No se pudo editar el registro.');
   }
 }
 
-// Eliminar registro
 async function eliminarRegistro(id) {
-  const confirmacion = confirm(`¿Seguro que quieres eliminar el registro con ID ${id}?`);
-  if (!confirmacion) return;
+  if (!confirm(`¿Estás seguro de eliminar el registro con ID ${id}?`)) return;
 
   try {
     const response = await fetch(`${BASE_URL}/registro/${id}`, {
       method: 'DELETE'
     });
 
-    const resultText = await response.text();
-
-    if (!response.ok) {
-      throw new Error(`Error al eliminar: ${response.status} - ${resultText}`);
-    }
+    if (!response.ok) throw new Error(await response.text());
 
     alert('Registro eliminado correctamente');
     consultarRegistro();
   } catch (error) {
     console.error('Error al eliminar registro:', error.message);
-    alert(error.message);
+    alert('No se pudo eliminar el registro.');
   }
 }
 
-// Ejecutar al cargar la página
 window.onload = consultarRegistro;
 
