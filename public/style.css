@@ -8,14 +8,17 @@ body {
 .container {
   max-width: 1200px;
   margin: auto;
+  padding: 20px;
 }
 
 header {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   background-color: #003366;
   padding: 20px;
-  color: white;
+  color: #FFFFFF;
 }
 
 header img {
@@ -24,44 +27,12 @@ header img {
 }
 
 header h1 {
+  color: #FFFFFF;
   margin: 0;
 }
 
-.udg-virtual-logo {
-  margin: 20px 0;
-}
-
-.udg-virtual-logo img {
-  max-width: 300px;
-}
-
-.descripcion-web {
-  font-weight: bold;
-  color: #003366;
-}
-
-h2 {
-  color: #003366;
-}
-
-.content a {
-  color: #003366;
-  text-decoration: none;
-}
-
-.content a:hover {
-  text-decoration: underline;
-}
-
-footer {
-  background-color: #003366;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
 .buttons {
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .buttons button {
@@ -72,6 +43,7 @@ footer {
   color: #003366;
   cursor: pointer;
   border-radius: 5px;
+  font-weight: bold;
 }
 
 .buttons button:hover {
@@ -81,30 +53,17 @@ footer {
 
 .registros-container {
   margin-top: 20px;
-  background-color: #f0f8ff;
-  border-radius: 5px;
   padding: 15px;
+  border: 1px solid #003366;
+  border-radius: 5px;
+  background-color: #f0f8ff;
   max-height: 400px;
   overflow-y: auto;
 }
 
 .registro-item {
-  background: white;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
-.registro-item button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  background-color: #ccc;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.registro-item button:hover {
-  background-color: #999;
-}
