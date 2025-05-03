@@ -105,12 +105,26 @@ footer {
   overflow-y: auto;
 }
 
-.registros-container ul {
-  list-style-type: none;
-  padding: 0;
+/* Estilos agregados para cada registro */
+.registro-item {
+  margin: 10px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 5px;
 }
 
-.registros-container li {
-  margin: 5px 0;
-  padding: 5px;
-  border
+.registro-item button {
+  margin-left: 10px;
+  background-color: #FFCC00;
+  border: none;
+  padding: 5px 10px;
+  color: #003366;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.registro-item button:hover {
+  background-color: #003366;
+  color: #FFCC00;
+}
