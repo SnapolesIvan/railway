@@ -48,10 +48,9 @@ async function agregarRegistro() {
       body: JSON.stringify({ nombre, valor }),
     });
 
-    if (!response.ok) {
-      const errorMessage = await response.text(); // Captura el mensaje de error del backend
-      throw new Error(`Error al agregar el registro: ${response.status} - ${errorMessage}`);
-    }
+    const resultText = await response.text(); // Captura la respuesta del servidor
+
+    if (!response.ok) throw new Error(`Error al agregar el registro: ${response.status} - ${resultText}`);
 
     alert('Registro agregado exitosamente');
     consultarRegistro();
