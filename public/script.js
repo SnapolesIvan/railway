@@ -42,8 +42,10 @@ async function agregarRegistro() {
       body: JSON.stringify({ nombre, valor })
     });
 
-    const resultText = await response.text();
-    if (!response.ok) throw new Error(`Error al agregar: ${response.status} - ${resultText}`);
+    if (!response.ok) {
+      const resultText = await response.text();
+      throw new Error(`Error al agregar: ${response.status} - ${resultText}`);
+    }
 
     alert('Registro agregado con éxito');
     consultarRegistro();
@@ -57,55 +59,5 @@ async function agregarRegistro() {
 async function editarRegistro() {
   const id = prompt('Introduce el ID del registro a editar:');
   const nombre = prompt('Nuevo nombre:');
-  const valor = prompt('Nuevo valor:');
-
-  if (!id || !nombre || !valor) {
-    alert('Todos los campos son obligatorios');
-    return;
-  }
-
-  try {
-    const response = await fetch(`${BASE_URL}/registro/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, valor })
-    });
-
-    const resultText = await response.text();
-    if (!response.ok) throw new Error(`Error al editar: ${response.status} - ${resultText}`);
-
-    alert('Registro editado correctamente');
-    consultarRegistro();
-  } catch (error) {
-    console.error('Error al editar registro:', error.message);
-    alert('No se pudo editar el registro.');
-  }
-}
-
-// Eliminar registro
-async function eliminarRegistro() {
-  const id = prompt('Introduce el ID del registro a eliminar:');
-
-  if (!id) {
-    alert('El ID es obligatorio');
-    return;
-  }
-
-  try {
-    const response = await fetch(`${BASE_URL}/registro/${id}`, {
-      method: 'DELETE'
-    });
-
-    const resultText = await response.text();
-    if (!response.ok) throw new Error(`Error al eliminar: ${response.status} - ${resultText}`);
-
-    alert('Registro eliminado correctamente');
-    consultarRegistro();
-  } catch (error) {
-    console.error('Error al eliminar registro:', error.message);
-    alert('No se pudo eliminar el registro.');
-  }
-}
-
-window.onload = consultarRegistro;
+  const valor =
 
